@@ -1,7 +1,7 @@
 var tracker = require("./lib/tracker");
 var util = require('util');
 
-function testAddPeers() {
+function testAddPeers(warmup) {
     var t = tracker.Tracker();
     var torrent = t.getTorrent('640FE84C613C17F663551D218689A64E8AEBEABE');
 
@@ -15,13 +15,21 @@ function testAddPeers() {
         torrent.addPeer(peerId, peer, 2);
     }
     var end = new Date().getTime();
-    console.log("Time to add 1M peers in ms: " + (end - start));
-    console.log(util.inspect(process.memoryUsage()));
+    if(!warmup) {
+        console.log("Time to add 1M peers in ms: " + (end - start));
+        console.log(util.inspect(process.memoryUsage()));
+    }
 }
 
-for(var runCount=0; runCount<5; runCount++){
+// Warmup
+for(var warmupRun=0; warmupRun<10; warmupRun++){
+    testAddPeers(true);
+}
+
+// Actual runs
+for(var runCount=0; runCount<100; runCount++){
     console.log("Starting run number "+runCount);
-    testAddPeers();
+    testAddPeers(false);
 }
 
 console.log("Final memory usage:" );
