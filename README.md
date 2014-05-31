@@ -13,3 +13,4 @@ Tested (well...testing) with Node 0.10.28
 
 Based on original work by [WizKid/node-bittorrent-tracker](https://github.com/WizKid/node-bittorrent-tracker).
 Including some modifications from [plasticpanda/bittorrent-tracker](https://github.com/plasticpanda/bittorrent-tracker)
+Floyd random sampling algorithm from [darsee/node-bittorrent-tracker](https://github.com/darsee/node-bittorrent-tracker/)
